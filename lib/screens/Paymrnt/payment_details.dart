@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/screens/searchphoneaddress/searchphoneaddress.dart';
 import 'package:untitled/utils/utils.dart';
-import 'package:untitled/widgets/custom_setting_popuo_menu.dart';
 import 'package:untitled/widgets/size_constants.dart';
 
 import '../../theme.dart';
