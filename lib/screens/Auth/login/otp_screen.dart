@@ -221,6 +221,7 @@ class _otp_screenState extends State<otp_screen> {
     );
   }
 
+
   _noAccountText() {
     return FittedBox(
       child: Row(

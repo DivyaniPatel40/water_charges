@@ -24,6 +24,9 @@
   "address": "Address",
   "by_phone": "By Phone",
   "by_address": "By Address",
+  "phone_no": " Phone Number",
+  "acc_no": " Account Number",
+  "acc_no_enter": "Enter your Account Number",
 
 
 

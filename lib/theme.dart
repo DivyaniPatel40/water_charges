@@ -76,6 +76,9 @@ class Colorss {
 
   static const Color loginGradientStart = const Color(0xFFfbab66);
   static const Color loginGradientEnd = const Color(0xFFf7418c);
+  static const Color textColorBlue = const Color(0xff9ED5FF);
+  static const Color textfiledbackground = const Color(0xffEDF6FF);
+  static const Color textColorGreen = const Color(0xff009F49);
 
   static const primaryGradient = const LinearGradient(
     colors: const [loginGradientStart, loginGradientEnd],

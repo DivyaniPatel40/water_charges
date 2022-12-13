@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:untitled/theme.dart';
 
 class CustomTextField extends StatelessWidget {
   final String text;
+  final String? hintText;
   //final String lable;
   final Icon? icon;
   final bool? obscure;
@@ -14,40 +16,45 @@ class CustomTextField extends StatelessWidget {
     this.icon,
     this.obscure = false,
     required this.controller,
+    this.hintText,
   });
 
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      color:  Color(0xffedf6ff),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
-        side: BorderSide(color: Color(0xffedf6ff)),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: Colorss.textfiledbackground,
       ),
       child: TextFormField(
         controller: controller,
         obscureText: obscure != null ? obscure! : false,
         cursorColor: Colors.black,
         style: TextStyle(
-          color: Color(0xffedf6ff),
+          color: Colorss.textColorBlue,
           fontFamily: 'Raleway',
           fontSize: 14,
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
           contentPadding:
-              EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 0),
+              EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 18),
           errorStyle: TextStyle(fontSize: 10, height: 0.4),
           // contentPadding: EdgeInsets.symmetric(vertical: 1),
 
           focusedErrorBorder: InputBorder.none,
-          focusedBorder:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
-          errorBorder: InputBorder.none,
+
+          // focusedBorder:
+          //     OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
+           border: InputBorder.none,/*OutlineInputBorder(borderRadius: BorderRadius.circular(50)),*/
+          // errorBorder: InputBorder.none,
           labelText: text,
+
+          hintText: hintText,
+          hintStyle: TextStyle(
+            color: Colorss.textColorBlue,
+          ),
           labelStyle: TextStyle(
             color: Color(0xff9ed5ff),
             fontFamily: 'Raleway',

@@ -9,6 +9,10 @@ import 'package:untitled/theme.dart' as Theme;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:untitled/widgets/custom_text_field.dart';
 
+import '../../widgets/custom_dropdown.dart';
+import '../../widgets/default_custom_button.dart';
+import '../../widgets/size_constants.dart';
+
 class searchphoneaddress extends StatefulWidget {
 
   @override
@@ -43,6 +47,8 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
   Color left = Colors.black;
   Color right = Colors.black;
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,20 +60,20 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
         },
         child: Stack(
           children: [
-            Positioned.fill(
+             Positioned.fill(
               child: Image.asset(
-                "assets/wsp/Group 42.png",
+                "assets/wsp/background_full.png",
                 fit: BoxFit.fitWidth,
                 alignment: Alignment.topCenter,
               ),
             ),
-            Positioned.fill(
-              child: Image.asset(
-                "assets/wsp/background.png",
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.bottomLeft,
-              ),
-            ),
+            // Positioned.fill(
+            //   child: Image.asset(
+            //     "assets/wsp/background.png",
+            //     fit: BoxFit.fitWidth,
+            //     alignment: Alignment.bottomLeft,
+            //   ),
+            // ),
             SingleChildScrollView(
               child: Container(
                 width: MediaQuery.of(context).size.width,
@@ -115,6 +121,7 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
                             setState(() {
                               right = Colors.black;
                               left = Colors.black;
+
                             });
                           } else if (i == 1) {
                             setState(() {
@@ -132,6 +139,9 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
                             constraints: const BoxConstraints.expand(),
                             child: _buildSignUp(context),
                           ),
+
+
+
                         ],
                       ),
                     ),
@@ -185,6 +195,7 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
         side: BorderSide(color: Color(0xffedf6ff)),
       ),
       child: TextFormField(
+
         controller: _loginPasswordController,
         obscureText: false,
         cursorColor: Colors.black,
@@ -199,13 +210,12 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
           EdgeInsets.only(left: 25, right: 25, top: 0, bottom: 0),
           errorStyle: TextStyle(fontSize: 10, height: 0.4),
           // contentPadding: EdgeInsets.symmetric(vertical: 1),
-
           focusedErrorBorder: InputBorder.none,
           focusedBorder:
           OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
           errorBorder: InputBorder.none,
-          labelText: "text",
+          labelText: "Phone No",
           labelStyle: TextStyle(
             color: Color(0xff9ed5ff),
             fontFamily: 'Raleway',
@@ -306,6 +316,12 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
                 controller: _loginPasswordController,
               ),
             ),
+      SizedBox(height: 50,),
+      Center(
+        child: DefaultCustomButton(
+          text: "SEND",
+          onPressed: (){},
+        ),),
           ],
         ),
       ),
@@ -317,196 +333,60 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
       padding: EdgeInsets.only(top: 23.0),
       child: Column(
         children: <Widget>[
-          Stack(
-            alignment: Alignment.topCenter,
-            // overflow: Overflow.visible,
-            children: <Widget>[
-              Card(
-                elevation: 2.0,
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                child: Container(
-                  width: 300.0,
-                  height: 360.0,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
-                        child: TextField(
-                          focusNode: myFocusNodeName,
-                          controller: signupNameController,
-                          keyboardType: TextInputType.text,
-                          textCapitalization: TextCapitalization.words,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.user,
-                              color: Colors.black,
-                            ),
-                            hintText: "Name",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
-                          ),
+          Expanded(
+            child: Stack(
+              alignment: Alignment.topCenter,
+              // overflow: Overflow.visible,
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(left: 20,right: 20),
+                  //width: 300.0,
+
+                  child: ListView(
+                    children: [
+                      Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+
+                        Text("Select an area",style: TextStyle(fontSize: 12),),
+                        height10SizedBox,
+                        Custom_Dropdown(dropdownlist: ["one","adsf"], hintText: "sdjkbds",),
+                        height20SizedBox,
+                        Text("Select a street",style: TextStyle(fontSize: 12),),
+                        height10SizedBox,
+                        Custom_Dropdown(dropdownlist: ["one","adsf"], hintText: "sdjkbds",),
+                        height20SizedBox,
+                        Text("Select a building",style: TextStyle(fontSize: 12),),
+                        height10SizedBox,
+                        Custom_Dropdown(dropdownlist: ["one","adsf"], hintText: "sdjkbds",),
+                        height20SizedBox,
+                        Text("Select a property (Apartment)",style: TextStyle(fontSize: 12),),
+                        height10SizedBox,
+                        Custom_Dropdown(dropdownlist: ["one","adsf"], hintText: "sdjkbds",),
+                        height20SizedBox,
+                        Text("Account Number",style: TextStyle(fontSize: 12),),
+                        height10SizedBox,
+                        CustomTextField(
+                          text: 'acc_no_enter'.tr(),
+                          icon: Icon(Icons.lock, color: Colors.green),
+                          obscure: true,
+                          controller: _loginPasswordController,
                         ),
-                      ),
-                      Container(
-                        width: 250.0,
-                        height: 1.0,
-                        color: Colors.grey[400],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
-                        child: TextField(
-                          focusNode: myFocusNodeEmail,
-                          controller: signupEmailController,
-                          keyboardType: TextInputType.emailAddress,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.envelope,
-                              color: Colors.black,
-                            ),
-                            hintText: "Email Address",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 250.0,
-                        height: 1.0,
-                        color: Colors.grey[400],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
-                        child: TextField(
-                          focusNode: myFocusNodePassword,
-                          controller: signupPasswordController,
-                          obscureText: _obscureTextSignup,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.lock,
-                              color: Colors.black,
-                            ),
-                            hintText: "Password",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
-                            suffixIcon: GestureDetector(
-                              onTap: _toggleSignup,
-                              child: Icon(
-                                _obscureTextSignup
-                                    ? FontAwesomeIcons.eye
-                                    : FontAwesomeIcons.eyeSlash,
-                                size: 15.0,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: 250.0,
-                        height: 1.0,
-                        color: Colors.grey[400],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
-                        child: TextField(
-                          controller: signupConfirmPasswordController,
-                          obscureText: _obscureTextSignupConfirm,
-                          style: TextStyle(
-                              fontFamily: "WorkSansSemiBold",
-                              fontSize: 16.0,
-                              color: Colors.black),
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            icon: Icon(
-                              FontAwesomeIcons.lock,
-                              color: Colors.black,
-                            ),
-                            hintText: "Confirmation",
-                            hintStyle: TextStyle(
-                                fontFamily: "WorkSansSemiBold", fontSize: 16.0),
-                            suffixIcon: GestureDetector(
-                              onTap: _toggleSignupConfirm,
-                              child: Icon(
-                                _obscureTextSignupConfirm
-                                    ? FontAwesomeIcons.eye
-                                    : FontAwesomeIcons.eyeSlash,
-                                size: 15.0,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                        height20SizedBox,
+                        Center(
+                          child: DefaultCustomButton(
+                            text: "SEND",
+                            onPressed: (){},
+                          ),),
+
+                      ],
+                    ),
                     ],
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 340.0),
-                decoration: new BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Theme.Colorss.loginGradientStart,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                    BoxShadow(
-                      color: Theme.Colorss.loginGradientEnd,
-                      offset: Offset(1.0, 6.0),
-                      blurRadius: 20.0,
-                    ),
-                  ],
-                  gradient: new LinearGradient(
-                      colors: [
-                        Theme.Colorss.loginGradientEnd,
-                        Theme.Colorss.loginGradientStart
-                      ],
-                      begin: const FractionalOffset(0.2, 0.2),
-                      end: const FractionalOffset(1.0, 1.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
-                child: MaterialButton(
-                    highlightColor: Colors.transparent,
-                    splashColor: Theme.Colorss.loginGradientEnd,
-                    //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 42.0),
-                      child: Text(
-                        "SIGN UP",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25.0,
-                            fontFamily: "WorkSansBold"),
-                      ),
-                    ),
-                    onPressed: () => showInSnackBar("SignUp button pressed")),
-              ),
-            ],
+
+              ],
+            ),
           ),
         ],
       ),

@@ -221,7 +221,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  _noAccountText() {
+  _noAccountText_noAccountText() {
     return FittedBox(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

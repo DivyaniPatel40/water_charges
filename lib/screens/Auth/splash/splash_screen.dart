@@ -19,6 +19,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../Loader_screen/loader_screen.dart';
+import '../../Paymrnt/payment_details.dart';
+
 // FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
 class SplashScreen extends StatefulWidget {
@@ -60,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     });
 
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(Duration(seconds: 5), () {
       _checkWifi();
     });
 
@@ -80,10 +83,12 @@ class _SplashScreenState extends State<SplashScreen> {
   _getVideoBackground() {
     return AnimatedOpacity(
       opacity:  0.9 ,
-      duration: Duration(milliseconds: 1000),
-      child: VideoPlayer(_controller!),
+      duration: Duration(milliseconds: 100),
+      child:  SizedBox.expand(child: FittedBox(fit: BoxFit.cover,child: SizedBox(
+        height: 500,
+        width: MediaQuery.of(context).size.width,child: VideoPlayer(_controller!)))),
 
-
+        //child: VideoPlayer(_controller!)
 
 
     );
@@ -164,14 +169,17 @@ class _SplashScreenState extends State<SplashScreen> {
             // Container(
             //   child: Image.asset(
             //     'assets/images/logo.jpg',
-            //     width: double.infinity,
+            //
+            //     : double.infinity,
             //     height: double.infinity,
             //     fit: BoxFit.cover,
             //   ),
             //   width: double.infinity,
             //   height: double.infinity,\
             // ),
+
             _getVideoBackground(),
+
 
             Center(
               child: Image.asset("assets/wsp/logo.png",height: 200,width: 200,)
