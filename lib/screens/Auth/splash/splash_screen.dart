@@ -14,9 +14,11 @@ import 'package:untitled/screens/Tabs/tabs_screen.dart';
 import 'package:untitled/screens/searchphoneaddress/searchphoneaddress.dart';
 import 'package:untitled/services/api_repository.dart';
 import 'package:untitled/size_config.dart';
+import 'package:untitled/theme.dart';
 import 'package:untitled/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled/widgets/size_constants.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../Loader_screen/loader_screen.dart';
@@ -182,8 +184,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
 
             Center(
-              child: Image.asset("assets/wsp/logo.png",height: 200,width: 200,)
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset("assets/wsp/logo.png",height: 150,width: 150,),
+                    height10SizedBox,
+                    Text("Aşgabat Şäher Hakimligi",style: TextStyle(fontSize: 18,color: Color(0xff0C76DF)),),
+                  ],
+
+                ),
+
+              ),
             ),
+
           ],
         ),
       ),
@@ -202,7 +216,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _body() {
-    return _isRetrieving ? _loadingLayout(context) : searchphoneaddress();//LanguagesScreen();
+    return _isRetrieving ? _loadingLayout(context) : payment_details();//LanguagesScreen();
 
     //TabsScreen();
   }

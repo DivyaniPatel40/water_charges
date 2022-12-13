@@ -62,7 +62,7 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
           children: [
              Positioned.fill(
               child: Image.asset(
-                "assets/wsp/background_full.png",
+                "assets/wsp/Group 42.png",
                 fit: BoxFit.fitWidth,
                 alignment: Alignment.topCenter,
               ),
@@ -378,6 +378,7 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
                             text: "SEND",
                             onPressed: (){},
                           ),),
+                        height50SizedBox,
 
                       ],
                     ),

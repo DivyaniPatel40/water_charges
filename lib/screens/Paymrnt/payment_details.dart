@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/screens/searchphoneaddress/searchphoneaddress.dart';
+import 'package:untitled/utils/utils.dart';
+import 'package:untitled/widgets/custom_setting_popuo_menu.dart';
 import 'package:untitled/widgets/size_constants.dart';
 
 import '../../theme.dart';
@@ -16,6 +19,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 TextEditingController payMyBalance = new TextEditingController();
 TextEditingController indicatorController = new TextEditingController();
 TextEditingController indicatorControllern = new TextEditingController();
+bool _enabled = true;
 
 class _payment_detailsState extends State<payment_details> {
   @override
@@ -29,14 +33,13 @@ class _payment_detailsState extends State<payment_details> {
         },
         child: Stack(
           children: [
-            Positioned.fill(
-              child: Image.asset(
-                "assets/wsp/background_full.png",
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.topCenter,
-              ),
+            Image.asset(
+              "assets/wsp/Group 42.png",
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.fitWidth,
+              alignment: Alignment.topCenter,
             ),
-            SingleChildScrollView(
+            Positioned(
               child: Container(
 
                 width: MediaQuery.of(context).size.width,
@@ -49,7 +52,180 @@ class _payment_detailsState extends State<payment_details> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SizedBox(height: 40,),
+
+                    SizedBox(height: 55,),
+
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.end,
+                    //   children: [
+                    //     InkWell(
+                    //       onTap: (){
+                    //         // showBottomSheet(context: context, builder: (context){
+                    //         //   return Container(height: 200,
+                    //         //     color: Colors.red,
+                    //         //   );
+                    //         // });
+                    //        // showCustomDialogWithTitle(context,
+                    //        //
+                    //        //   title: "asdgasdg",
+                    //        //   body: Container(
+                    //        //     margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    //        //     height: 200,
+                    //        //     width: 200,
+                    //        //   )
+                    //         showDialog(
+                    //           context: context,
+                    //           barrierDismissible: true,
+                    //
+                    //           builder: (BuildContext context) {
+                    //             return AlertDialog(
+                    //               title: Text('Choose your language',style: TextStyle(),),
+                    //               content: SingleChildScrollView(child: Container(
+                    //                 decoration: BoxDecoration(
+                    //                   borderRadius: BorderRadius.circular(15),
+                    //                 ),
+                    //                 height: 200,
+                    //                 width: 200,
+                    //
+                    //               )),
+                    //               // actions: <Widget>[
+                    //               //   onTapSubmit != null
+                    //               //       ? TextButton(
+                    //               //     style: TextButton.styleFrom(
+                    //               //       backgroundColor: Theme.of(context).primaryColor,
+                    //               //     ),
+                    //               //     child: Text('submit'.tr(),
+                    //               //         style: TextStyle(color: Colors.white)),
+                    //               //     onPressed: () => onTapSubmit(),
+                    //               //   )
+                    //               //       : Container(),
+                    //               // ],
+                    //             );
+                    //           },
+                    //         );
+                    //          //   onPressed: (){
+                    //          // return AlertDialog(
+                    //          //   shape: RoundedRectangleBorder(
+                    //          //     borderRadius: BorderRadius.only(topLeft: Radius.circular(13),bottomLeft: Radius.circular(13)),
+                    //          //
+                    //          //   ),
+                    //          //   content: searchphoneaddress(),
+                    //          // );
+                    //       // }
+                    //         print("object");
+                    //
+                    //       },
+                    //       child: Container(
+                    //         padding: EdgeInsets.only(right: 20),
+                    //         child: Image.asset('assets/wsp/Settings Minimalistic.png'),
+                    //       ),
+                    //     ),
+                    //   ],
+                    //
+                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            showMenu<String>(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(13),bottomLeft: Radius.circular(13))),
+                              context: context,
+                              position:RelativeRect.fromLTRB(
+                                  1,0,0,0),
+                              items: [
+                                PopupMenuItem<String>(
+                                  enabled: false,
+                                  child: Container(
+                                    alignment: Alignment.topRight,
+                                      color: Colors.transparent,
+                                      child: SafeArea(
+                                          child: Container(
+
+                                            child: Container(
+                                              height: MediaQuery.of(context).size.height * 0.35,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                 GestureDetector(
+                                                   onTap: (){
+                                                     Navigator.of(context).pop();
+                                                   },
+                                                   child: Row(
+                                                     mainAxisAlignment: MainAxisAlignment.end,
+                                                     children: [
+                                                       Image.asset('assets/wsp/Close Circle.png',height: 20,width: 20,),
+                                                     ],
+                                                   ),
+                                                 ),
+                                                  height10SizedBox,
+                                                  Center(child: Text("Choose your language",style: TextStyle(fontFamily: 'Metropolis',fontSize: 12,color: Color(0xff9E9E9E)),)),
+                                                  height20SizedBox,
+                                                  Container(
+                                                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                    child: Center(
+                                                      child: Text("Türkmen",style: TextStyle(fontSize: 14,fontFamily: 'Metropolis'),),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30),
+                                                      color: Colorss.textfiledbackground,
+                                                    ),
+                                                  ),
+                                                  height10SizedBox,
+                                                  Container(
+                                                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                    child: Center(
+                                                      child: Text("Русский",style: TextStyle(fontSize: 14,fontFamily: 'Metropolis'),),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30),
+                                                      color: Colorss.textfiledbackground,
+                                                    ),
+                                                  ),
+                                                  height10SizedBox,
+                                                  Container(
+                                                    padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                    child: Center(
+                                                      child: Text("English",style: TextStyle(fontSize: 14,fontFamily: 'Metropolis'),),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(30),
+                                                      color: Colorss.textfiledbackground,
+                                                    ),
+                                                  ),
+                                                  height20SizedBox,
+                                                  Center(child: Text("Sign out your account",style: TextStyle(fontSize: 12,color: Color(0xff9E9E9E),
+                                                      fontFamily: 'Metropolis'),)),
+
+                                                  height10SizedBox,
+                                                  Container(
+                                                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                                                    child: DefaultCustomButton(
+                                                      text: "Sign out",
+                                                      onPressed: (){},
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ),
+                                          ))),
+                                ),
+                              ],
+                              elevation: 8.0,
+                            );
+
+
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(right: 20),
+                            child: Image.asset('assets/wsp/Settings Minimalistic.png'),
+                          ),
+                        ),
+                      ],
+
+                    ),
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
                       child: Container(
@@ -70,10 +246,11 @@ class _payment_detailsState extends State<payment_details> {
                     ),
                     SizedBox(height: 20,),
                     Text(tr("water_supply_charges"),style: TextStyle(color: Colors.white),),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 50,),
                     Expanded(
                       child: Container(
-                        margin: EdgeInsets.only(left: 15,right: 15),
+
+                        margin: EdgeInsets.only(left: 20,right: 20),
                         child: ListView(
                           children: [
                             Card(
@@ -83,9 +260,11 @@ class _payment_detailsState extends State<payment_details> {
                             ),
                             //margin: EdgeInsets.only(left: 15,right: 15),
                             child: Container(
-                              height: MediaQuery.of(context).size.height * 0.33,
+                              //height: MediaQuery.of(context).size.height *0.35,
                               //height: 300,
-                              child: Column(
+                              child: ListView(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 children: [
                                   Container(
                                     color: Colorss.textfiledbackground,
@@ -159,6 +338,7 @@ class _payment_detailsState extends State<payment_details> {
                                         ],
                                     ),
                                   ),
+
                                 ],
                               ),
                             ),
@@ -182,9 +362,11 @@ class _payment_detailsState extends State<payment_details> {
                               ),
                               //margin: EdgeInsets.only(left: 15,right: 15),
                               child: Container(
-                                height: MediaQuery.of(context).size.height * 0.35,
+                                //height: MediaQuery.of(context).size.height * 0.35,
                                 //height: 300,
-                                child: Column(
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
@@ -248,6 +430,7 @@ class _payment_detailsState extends State<payment_details> {
                                             obscure: false,
                                             controller: indicatorController,
                                           ),
+                                          height20SizedBox,
                                         ],
                                       ),
                                     ),
@@ -263,9 +446,11 @@ class _payment_detailsState extends State<payment_details> {
                               ),
                               //margin: EdgeInsets.only(left: 15,right: 15),
                               child: Container(
-                                height: MediaQuery.of(context).size.height * 0.35,
+                                //height: MediaQuery.of(context).size.height * 0.35,
                                 //height: 300,
-                                child: Column(
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
@@ -329,6 +514,7 @@ class _payment_detailsState extends State<payment_details> {
                                             obscure: false,
                                             controller: indicatorControllern,
                                           ),
+                                          height20SizedBox,
                                         ],
                                       ),
                                     ),
@@ -344,9 +530,11 @@ class _payment_detailsState extends State<payment_details> {
                               ),
                               //margin: EdgeInsets.only(left: 15,right: 15),
                               child: Container(
-                                height: MediaQuery.of(context).size.height * 0.25,
+                                //height: MediaQuery.of(context).size.height * 0.25,
                                 //height: 300,
-                                child: Column(
+                                child: ListView(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
@@ -395,25 +583,29 @@ class _payment_detailsState extends State<payment_details> {
                                               Text("21st March, 2021",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                                             ],
                                           ),
+                                          height20SizedBox,
+
 
                                         ],
                                       ),
                                     ),
+
                                   ],
                                 ),
                               ),
                             ),
+                            height30SizedBox,
+                            Center(
+                              child: DefaultCustomButton(
+                                text: "PAY",
+                                onPressed: (){},
+                              ),),
+                            height20SizedBox,
                           ],
                         ),
                       ),
                     ),
-                    height30SizedBox,
-                    Center(
-                      child: DefaultCustomButton(
-                        text: "PAY",
-                        onPressed: (){},
-                      ),),
-                    height20SizedBox,
+
                   ],
 
                 ),
@@ -426,4 +618,8 @@ class _payment_detailsState extends State<payment_details> {
 
     );
   }
+
+
+
+
 }
