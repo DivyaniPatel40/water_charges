@@ -6,9 +6,11 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:untitled/config/app_config.dart';
+import 'package:untitled/models/app_user.dart';
 import 'package:untitled/preferences/session_manager.dart';
 import 'package:untitled/providers/app_provider.dart';
 import 'package:untitled/providers/auth_provider.dart';
+import 'package:untitled/screens/Paymrnt/payment_responce.dart';
 import 'package:untitled/screens/Tabs/settings/languages/languages_screen.dart';
 import 'package:untitled/screens/Tabs/tabs_screen.dart';
 import 'package:untitled/screens/searchphoneaddress/searchphoneaddress.dart';
@@ -22,7 +24,14 @@ import 'package:untitled/widgets/size_constants.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../Loader_screen/loader_screen.dart';
+import '../../Other/profile/profile_screen.dart';
 import '../../Paymrnt/payment_details.dart';
+import '../../address/addressScreen.dart';
+import '../login/login_screen.dart';
+import '../login/newpassword_screen.dart';
+import '../login/otp_screen.dart';
+import '../login/reset_password_screen.dart';
+import '../register/register_screen.dart';
 
 // FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 

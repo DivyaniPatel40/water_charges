@@ -74,79 +74,77 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
             //     alignment: Alignment.bottomLeft,
             //   ),
             // ),
-            SingleChildScrollView(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height >= 775.0
-                    ? MediaQuery.of(context).size.height
-                    : 775.0,
-                decoration: new BoxDecoration(
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height >= 775.0
+                  ? MediaQuery.of(context).size.height
+                  : 775.0,
+              decoration: new BoxDecoration(
 
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    SizedBox(height: 80,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      child: Container(
-                          height: MediaQuery.of(context).size.height * .06,
-                          width: MediaQuery.of(context).size.height * .06,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Color(0xffedf6ff),
-                              ),
-                              borderRadius: BorderRadius.all(Radius.circular(50))
-                          ),
-                          child: Center(
-                              child: Image.asset("assets/wsp/drop.png",color: Colors.green,height: 50,width: 50,)
-                          )
-                      ),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  SizedBox(height: 80,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: Container(
+                        height: MediaQuery.of(context).size.height * .06,
+                        width: MediaQuery.of(context).size.height * .06,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Color(0xffedf6ff),
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(50))
+                        ),
+                        child: Center(
+                            child: Image.asset("assets/wsp/drop.png",color: Colors.green,height: 50,width: 50,)
+                        )
                     ),
-                    SizedBox(height: 20,),
-                    Text(tr("water_supply_charges"),style: TextStyle(color: Colors.white),),
-                    SizedBox(height: 80,),
+                  ),
+                  SizedBox(height: 20,),
+                  Text(tr("water_supply_charges"),style: TextStyle(color: Colors.white),),
+                  SizedBox(height: 80,),
 
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
-                      child: _buildMenuBar(context),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.0),
+                    child: _buildMenuBar(context),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: (i) {
+                        if (i == 0) {
+                          setState(() {
+                            right = Colors.black;
+                            left = Colors.black;
+
+                          });
+                        } else if (i == 1) {
+                          setState(() {
+                            right = Colors.black;
+                            left = Colors.black;
+                          });
+                        }
+                      },
+                      children: <Widget>[
+                        new ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: _buildSignIn(context),
+                        ),
+                        new ConstrainedBox(
+                          constraints: const BoxConstraints.expand(),
+                          child: _buildSignUp(context),
+                        ),
+
+
+
+                      ],
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: PageView(
-                        controller: _pageController,
-                        onPageChanged: (i) {
-                          if (i == 0) {
-                            setState(() {
-                              right = Colors.black;
-                              left = Colors.black;
-
-                            });
-                          } else if (i == 1) {
-                            setState(() {
-                              right = Colors.black;
-                              left = Colors.black;
-                            });
-                          }
-                        },
-                        children: <Widget>[
-                          new ConstrainedBox(
-                            constraints: const BoxConstraints.expand(),
-                            child: _buildSignIn(context),
-                          ),
-                          new ConstrainedBox(
-                            constraints: const BoxConstraints.expand(),
-                            child: _buildSignUp(context),
-                          ),
-
-
-
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

@@ -141,6 +141,9 @@ class _otp_screenState extends State<otp_screen> {
                 //   controller: _loginEmailController,
                 // ),
                 OtpTextField(
+
+                  keyboardType: TextInputType.number,
+                  hasCustomInputDecoration: false,
                   numberOfFields: 4,
                   //borderColor: accentPurpleColor,
                   focusedBorderColor: Colors.green,

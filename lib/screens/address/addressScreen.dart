@@ -161,50 +161,61 @@ class _addressScreenState extends State<addressScreen> {
 
                   });
                 },
-                child: Container(
-                    width: MediaQuery.of(context).size.width  * .90,
-                    height: MediaQuery.of(context).size.height *.20,
-                    decoration: BoxDecoration(
-                    border: Border.all(
-                    color: (_selectedId == _addressJson[index]["id"])?Colors.green: Color(0xffedf6ff),
-                    width: 1.0,
-                    style: BorderStyle.solid
-                ),
-                borderRadius: BorderRadius.circular(20),
+                child: ListView(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
 
-                ),
-                child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 10,),
                     Container(
-                        width: MediaQuery.of(context).size.width  * .90,
-                        height: MediaQuery.of(context).size.height *.05,
+                      // width: MediaQuery.of(context).size.width  * .90,
+                      // height: MediaQuery.of(context).size.height *.20,
+                      decoration: BoxDecoration(
+                      border: Border.all(
+                      color: (_selectedId == _addressJson[index]["id"])?Colors.green: Color(0xffedf6ff),
+                      width: 1.0,
+                      style: BorderStyle.solid
+                  ),
+                  borderRadius: BorderRadius.circular(20),
 
-                        decoration: BoxDecoration(
-                          color: (_selectedId == _addressJson[index]["id"])?Colors.green:Color(0xffedf6ff),
+                  ),
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 10,),
+                      Container(
+                          width: MediaQuery.of(context).size.width  * .90,
+                          height: MediaQuery.of(context).size.height *.05,
 
-                          border: Border.all(
-                              color: Color(0xffedf6ff),
-                              width: 2.0,
-                              style: BorderStyle.solid
+                          decoration: BoxDecoration(
+                            color: (_selectedId == _addressJson[index]["id"])?Colors.green:Color(0xffedf6ff),
+
+                            border: Border.all(
+                                color: Color(0xffedf6ff),
+                                width: 2.0,
+                                style: BorderStyle.solid
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+
                           ),
-                          borderRadius: BorderRadius.circular(10),
+                          child: Center(child: Text("${_addressJson[index]["place"]}",style: TextStyle(
 
+                            color: (_selectedId == _addressJson[index]["id"])?Colors.white:Colors.black
+                          ),))),
+                      SizedBox(height: 10,),
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
+                        child: Column(
+                          children: [
+                            Text("${_addressJson[index]["address"]}"),
+                          ],
                         ),
-                        child: Center(child: Text("${_addressJson[index]["place"]}",style: TextStyle(
-
-                          color: (_selectedId == _addressJson[index]["id"])?Colors.white:Colors.black
-                        ),))),
-                    SizedBox(height: 10,),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 20),
-                      child: Text("${_addressJson[index]["address"]}"),
-                    )
-                  ],
-                ),
+                      )
+                    ],
+                  ),
+                  ),
+              ]
                 ),
               ),
             );

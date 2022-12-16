@@ -25,6 +25,7 @@ import 'package:untitled/widgets/custom_text_field.dart';
 import 'package:untitled/widgets/default_custom_button.dart';
 import 'package:untitled/widgets/progress_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled/widgets/size_constants.dart';
 
 class NewPasswordScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -155,6 +156,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   style: GoogleFonts.ubuntu(fontSize: 14),
                 ),
               ),
+              height10SizedBox,
               CustomTextField(
                 text: 'enter_password'.tr(),
                 icon: Icon(Icons.mail, color: Theme.of(context).primaryColor),
@@ -168,6 +170,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                   style: GoogleFonts.ubuntu(fontSize: 14),
                 ),
               ),
+              height10SizedBox,
               CustomTextField(
                 text: 'enter_password'.tr(),
                 icon: Icon(Icons.lock, color: Theme.of(context).primaryColor),
