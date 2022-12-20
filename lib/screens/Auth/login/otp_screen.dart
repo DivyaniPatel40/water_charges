@@ -7,7 +7,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:untitled/models/app_user.dart';
+
 import 'package:untitled/preferences/session_manager.dart';
 import 'package:untitled/providers/app_provider.dart';
 import 'package:untitled/providers/auth_provider.dart';

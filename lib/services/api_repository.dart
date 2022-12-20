@@ -28,6 +28,16 @@ class ApiRepository {
   static const CUISINE_IMAGES_PATH = URL + '/uploads/cuisines/';
   static const USER_IMAGES_PATH = URL + '/uploads/users/';
 
+
+  static const ADDRESS_CITY_PATH = URL + 'housing/bill/address/city';
+  static const ADDRESS_PATH = URL + 'housing/bill/address/address';
+  static const ADDRESS_BUILDING_PATH = URL + 'housing/bill/building/building';
+  static const ADDRESS_APPARTMENT_PATH = URL + 'housing/bill/building/apartment';
+
+
+
+
+
   // Settings map action
   static const headers = {'Accept': "application/json"};
 

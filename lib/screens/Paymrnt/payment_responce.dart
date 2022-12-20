@@ -229,8 +229,9 @@ class _payment_responceState extends State<payment_responce> {
                 border: Border.all(color: Colors.grey,width: 2),
                 borderRadius: BorderRadius.circular(30),
               ),
-              child: Center(child: Text("Thank You!",style: TextStyle(fontSize: 18,color: Colors.grey),)),
+              child: Center(child: Text("Please Pay Again.",style: TextStyle(fontSize: 18,color: Colors.grey),)),
             ),
+
             height20SizedBox
           ],
         ),
