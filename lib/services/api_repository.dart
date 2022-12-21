@@ -4,7 +4,11 @@ import 'dart:io';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:untitled/models/apartment_model.dart';
 import 'package:untitled/models/app_user.dart';
+// import 'package:untitled/models/area_address_model.dart';
+// import 'package:untitled/models/building_model.dart';
+// import 'package:untitled/models/city_listModel.dart';
 import 'package:untitled/models/comment.dart';
 import 'package:untitled/models/recipe.dart';
 import 'package:untitled/models/recipe_data.dart';
@@ -14,29 +18,32 @@ import 'package:http/http.dart' as http;
 
 import '../config/app_config.dart';
 import '../main.dart';
+import 'dart:developer';
+
+import '../models/api_models/apartment_model.dart';
+import '../models/api_models/area_address_model.dart';
+import '../models/api_models/building_model.dart';
+import '../models/api_models/city_model.dart';
 
 class ApiRepository {
   static RequestHelper requestHelper = RequestHelper();
   static const URL = AppConfig.URL;
 
   // API URL (The file performing CRUD operations)
-  static const API = URL + '/api';
+  static const API = URL + '/bridge';
 
   // Images paths in the server
+  static const BuildingList = API + '/housing/bill/building/building';
+  static const appartmentlist = API + '/housing/bill/building/apartment';
+  static const addresslist = API + '/housing/bill/address/address';
+  static const citylist = API + '/housing/bill/address/city';
+  static const get_water_charge = API + '/water/api/portal/v2/get-charges';
+
+
   static const RECIPE_IMAGES_PATH = URL + '/uploads/recipes/';
   static const CATEGORY_IMAGES_PATH = URL + '/uploads/categories/';
   static const CUISINE_IMAGES_PATH = URL + '/uploads/cuisines/';
   static const USER_IMAGES_PATH = URL + '/uploads/users/';
-
-
-  static const ADDRESS_CITY_PATH = URL + 'housing/bill/address/city';
-  static const ADDRESS_PATH = URL + 'housing/bill/address/address';
-  static const ADDRESS_BUILDING_PATH = URL + 'housing/bill/building/building';
-  static const ADDRESS_APPARTMENT_PATH = URL + 'housing/bill/building/apartment';
-
-
-
-
 
   // Settings map action
   static const headers = {'Accept': "application/json"};
@@ -97,6 +104,35 @@ class ApiRepository {
     } catch (e) {
       print(e);
       return AppUser();
+    }
+  }
+
+
+
+  static Future<http.Response?> getchargebyPhoneNo(BuildContext context, String accountno,
+      String phoneNo ) async {
+    try {
+
+
+      final response = await http.get(Uri.parse(get_water_charge),
+          headers: {
+            "Content-type": "multipart/form-data",
+            "email": "portal@pymnt.local",
+            "password": "123456t"
+          }, );
+      if (200 == response.statusCode) {
+        return response;
+      } else {
+        return null;
+      }
+
+      // AppUser user = AppUser.fromJson(responseJson['user']);
+      // if (user.id != null) Navigator.pop(context);
+      // return user;
+    } catch (e) {
+      print(e);
+      return null;
+      //return AppUser();
     }
   }
 
@@ -391,6 +427,194 @@ class ApiRepository {
       return [];
     }
   }
+
+
+  // Get all recipes from the database
+  static  getcityarealist() async {
+    print("inside get city list ${citylist}");
+    try {
+      final response =
+      await http.post(Uri.parse(citylist),
+          headers: headers,
+          body:{
+        "email": "portal_zet",
+        "password": "Qazwsx123!",
+        "id":"",
+        "country_id": "",
+        "state_id": "1",
+        "town_id": "55",
+        "search_text": "",
+        "offset":"0",
+        "limit":"10"
+      });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        AddressCityModel r = AddressCityModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+      return r;
+        // print("list $list");
+        //
+       // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+  static  getaddresslist() async {
+    print("inside get city list");
+    try {
+      final response =
+      await http.post(Uri.parse(addresslist),
+          headers: headers,
+          body:{
+        "email": "portal_zet",
+        "password": "Qazwsx123!",
+        "id":"",
+        "country_id": "",
+        "state_id": "1",
+        "town_id": "55",
+            "city_id":"",
+            "village_name":"",
+            "micrayon":"",
+        "search_text": "",
+        "offset":"0",
+        "limit":"10"
+      });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        AreaAddressModel r = AreaAddressModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+      return r;
+        // print("list $list");
+        //
+       // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+static  getbuildinglist() async {
+    print("inside get getbuildinglist list");
+    try {
+      final response =
+      await http.post(Uri.parse(BuildingList),
+          headers: headers,
+          body:{
+        "email": "portal_zet",
+        "password": "Qazwsx123!",
+            "building_uuid":"",
+            "address_id":"",
+            "stage":"",
+            "building_no":"",
+            "building_register_number":"",
+            "building_name":"",
+        "offset":"0",
+        "limit":"10"
+      });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        AddressBuildingModel r = AddressBuildingModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+      return r;
+        // print("list $list");
+        //
+       // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+static  getappartmentlist() async {
+    print("inside get getbuildinglist list");
+    try {
+      final response =
+      await http.post(Uri.parse(appartmentlist),
+          headers: headers,
+          body:{
+        "email": "portal_zet",
+        "password": "Qazwsx123!",
+            "apartment_uuid":"" ,
+            "address_id":"",
+            "building_id":"",
+            "apartment_no":"",
+            "phone_number":"",
+        "offset":"0",
+        "limit":"10"
+      });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        AddressApartmentModel r = AddressApartmentModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+      return r;
+        // print("list $list");
+        //
+       // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+
 
   // Get most collected recipes from the database
   static Future<List<Recipe>> getMostCollectedRecipes() async {

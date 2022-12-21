@@ -28,8 +28,8 @@ class _Custom_DropdownState extends State<Custom_Dropdown> {
           icon: Image.asset("assets/images/ic_dropdown.png",height: 7.5,width: 15.5,),
           borderRadius: BorderRadius.circular(30),
           value: widget.dropdownvalue,
-          hint: Text(widget.hintText ==null ? "hfhf" : widget.hintText.toString()),
-          style: const TextStyle(color: Colorss.textColorBlue,fontSize: 12),
+          hint: Text(widget.hintText ==null ? "hfhf" : widget.hintText.toString(),style: const TextStyle(color: Colorss.textColorBlue,fontSize: 12),),
+            style: const TextStyle(color: Colorss.textColorBlue,fontSize: 12),
 
           onChanged: (String? value) {
             // This is called when the user selects an item.
@@ -39,6 +39,7 @@ class _Custom_DropdownState extends State<Custom_Dropdown> {
           },
           items: widget.dropdownlist?.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
+
               value: value,
               child: Text(value),
             );

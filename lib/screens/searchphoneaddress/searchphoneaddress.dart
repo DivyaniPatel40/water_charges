@@ -2,16 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:untitled/services/api_repository.dart';
 import 'package:untitled/utils/bubble_indication_painter.dart';
 import 'package:untitled/theme.dart' as Theme;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:untitled/widgets/custom_text_field.dart';
+import 'package:untitled/widgets/progress_dialog.dart';
 
+import '../../theme.dart';
 import '../../widgets/custom_dropdown.dart';
 import '../../widgets/default_custom_button.dart';
 import '../../widgets/size_constants.dart';
+import 'dart:developer';
+// import 'package:untitled/models/city_listModel.dart';
+
 
 class searchphoneaddress extends StatefulWidget {
 
@@ -46,6 +53,9 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
 
   Color left = Colors.black;
   Color right = Colors.black;
+
+
+
 
 
 
@@ -173,10 +183,64 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
+    _getCityList();
     _pageController = PageController();
   }
+  List<DropdownMenuItem<String>> a=[];
 
+  var area,address,building,appartment ;
+  Future<void> _getCityList() async {
+    await ApiRepository.getcityarealist().then((value) {
+      print("valuessss ${value.data}");
+     area = value.data;
+      countryname = area[0].cityNameTm;
+      // a.add(area);
+      // a = area;
+      // print(value);
+
+      setState(() {
+        // _likes = value!;
+      });
+    });
+  }
+  Future<void> _getAddressList() async {
+    await ApiRepository.getaddresslist().then((value) {
+      print("valuessss ${value.data}");
+     address = value.data;
+      addressname = address[0].streetNameNew;
+      // a.add(area);
+      // print(value);
+      setState(() {
+        // _likes = value!;
+      });
+    });
+  }
+  Future<void> _getBuildingList() async {
+    await ApiRepository.getbuildinglist().then((value) {
+      print("valuessss ${value.data}");
+      building = value.data;
+      buildingname = building[0].buildingNo;
+      // a.add(area);
+      // print(value);
+      setState(() {
+        // _likes = value!;
+      });
+    });
+  }
+  Future<void> _getappartmentList() async {
+    await ApiRepository.getappartmentlist().then((value) {
+      print("valuessss ${value.data}");
+      appartment = value.data;
+      appartmentName = appartment[0].apartmentNo;
+      // a.add(area);
+      // print(value);
+      setState(() {
+        // _likes = value!;
+      });
+    });
+  }
+var addressname,buildingname,appartmentName;
+  String? countryname;
   void showInSnackBar(String value) {
 
   }
@@ -194,7 +258,7 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
       ),
       child: TextFormField(
 
-        controller: _loginPasswordController,
+        controller: phoneNumberController,
         obscureText: false,
         cursorColor: Colors.black,
         style: TextStyle(
@@ -279,52 +343,91 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
       ),
     );
   }
-  TextEditingController _loginPasswordController = TextEditingController();
+  TextEditingController _accountNoController = TextEditingController();
+  final formKey = new GlobalKey<FormState>();
 
   Widget _buildSignIn(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
       child: Container(
         padding: EdgeInsets.only(top: 23.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                tr('phone_no'),
-                style: GoogleFonts.ubuntu(fontSize: 14),
+        child: Form(
+          key: formKey,
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  tr('phone_no'),
+                  style: GoogleFonts.ubuntu(fontSize: 14),
+                ),
               ),
-            ),
-            phoneNumberInput(),
-            SizedBox(height: 20,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                tr('acc_no'),
-                style: GoogleFonts.ubuntu(fontSize: 14),
+              phoneNumberInput(),
+              SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  tr('acc_no'),
+                  style: GoogleFonts.ubuntu(fontSize: 14),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CustomTextField(
-                text: 'acc_no_enter'.tr(),
-                icon: Icon(Icons.lock, color: Colors.green),
-                obscure: true,
-                controller: _loginPasswordController,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CustomTextField(
+                  text: 'acc_no_enter'.tr(),
+                  icon: Icon(Icons.lock, color: Colors.green),
+                  obscure: true,
+                  controller: _accountNoController,
+                ),
               ),
-            ),
       SizedBox(height: 50,),
       Center(
-        child: DefaultCustomButton(
-          text: "SEND",
-          onPressed: (){},
-        ),),
-          ],
+          child: DefaultCustomButton(
+            text: "SEND",
+            onPressed: (){
+              if (formKey.currentState!.validate()) {
+                if (phoneNumberController.text.isNotEmpty && _accountNoController.text.isNotEmpty ) {
+
+
+                  GetWaterchargeAPICall();
+
+                } else {
+                  Fluttertoast.showToast(
+                    msg: 'error'.tr(),
+                    toastLength: Toast.LENGTH_SHORT,
+                  );
+                }
+              }
+            },
+          ),),
+            ],
+          ),
         ),
       ),
     );
   }
+  GetWaterchargeAPICall() async {
+
+    await loadingDialog(context).show();
+
+
+    await ApiRepository.getchargebyPhoneNo(
+        context,
+        _accountNoController.value.text,
+        phoneNumberController.value.text
+
+    ).then((value) async {
+      await loadingDialog(context).hide();
+      // if (value != null) Navigator.pop(context);
+    });
+
+    FocusScope.of(context).unfocus();
+    // Navigator.pop(context);
+
+  }
+
 
   Widget _buildSignUp(BuildContext context) {
     return Container(
@@ -337,6 +440,7 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
               // overflow: Overflow.visible,
               children: <Widget>[
                 Container(
+
                   padding: EdgeInsets.only(left: 20,right: 20),
                   //width: 300.0,
 
@@ -348,19 +452,148 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
 
                         Text("Select an area",style: TextStyle(fontSize: 12),),
                         height10SizedBox,
-                        Custom_Dropdown(dropdownlist: ["one","adsf"], hintText: "sdjkbds",),
+                        (area == null)? Custom_Dropdown(dropdownlist:  ["Select an area"], hintText: "Select an area",):
+                        Container(
+                          padding: EdgeInsets.fromLTRB(17, 0, 20, 0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colorss.textfiledbackground,
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<dynamic>(
+                              hint: Text("Select an area",
+                                  style: const TextStyle(color: Colorss.textColorBlue,fontSize: 12)),
+                                borderRadius: BorderRadius.circular(30),
+                                icon: Image.asset("assets/images/ic_dropdown.png",height: 7.5,width: 15.5,),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: countryname,
+                                items: area
+                                    .map<DropdownMenuItem<dynamic>>(
+                                      ( data) =>
+                                      DropdownMenuItem<dynamic>(
+
+                                        child: Text("${data.cityNameTm}",style: const TextStyle(color: Colorss.textColorBlue,fontSize: 12),),
+                                        value: data.cityNameTm,
+                                      ),
+                                )
+                                    .toList(),
+                                onChanged: (value) {
+                                  _getAddressList();
+                                  setState(() {
+                                      countryname = value;
+                                  });
+                                }
+                                ),
+                          ),
+                        ),
+
                         height20SizedBox,
                         Text("Select a street",style: TextStyle(fontSize: 12),),
                         height10SizedBox,
-                        Custom_Dropdown(dropdownlist: ["one","adsf"], hintText: "sdjkbds",),
+                        (address == null)?Custom_Dropdown(dropdownlist: ["Please First Select a area"], hintText: "Select a street",):
+
+                        Container(
+                          padding: EdgeInsets.fromLTRB(17, 0, 20, 0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colorss.textfiledbackground,
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<dynamic>(
+                                borderRadius: BorderRadius.circular(30),
+                                icon: Image.asset("assets/images/ic_dropdown.png",height: 7.5,width: 15.5,),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: addressname,
+                                items: address
+                                    .map<DropdownMenuItem<dynamic>>(
+                                      ( data) =>
+                                          DropdownMenuItem<dynamic>(
+                                    child: Text("${data.streetNameNew}",style: const TextStyle(color: Colorss.textColorBlue,fontSize: 12),),
+                                    value: data.streetNameNew,
+                                  ),
+                                )
+                                    .toList(),
+                                onChanged: (value) {
+                                  _getBuildingList();
+                                  setState(() {
+                                    // countryname = value;
+                                  });
+                                }),
+                          ),
+                        ),
                         height20SizedBox,
                         Text("Select a building",style: TextStyle(fontSize: 12),),
                         height10SizedBox,
-                        Custom_Dropdown(dropdownlist: ["one","adsf"], hintText: "sdjkbds",),
+                        (building == null)?Custom_Dropdown(dropdownlist: ["Please First Select a street"], hintText: "Select a building",):
+
+                        Container(
+                          padding: EdgeInsets.fromLTRB(17, 0, 20, 0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colorss.textfiledbackground,
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<dynamic>(
+                                borderRadius: BorderRadius.circular(30),
+                                icon: Image.asset("assets/images/ic_dropdown.png",height: 7.5,width: 15.5,),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: buildingname,
+                                items: building
+                                    .map<DropdownMenuItem<dynamic>>(
+                                      ( data) =>
+                                      DropdownMenuItem<dynamic>(
+
+                                        child: Text("${data.buildingNo}",style: const TextStyle(color: Colorss.textColorBlue,fontSize: 12),),
+                                        value: data.buildingNo,
+                                      ),
+                                )
+                                    .toList(),
+                                onChanged: (value) {
+                                  _getappartmentList();
+                                  // setState(() {
+                                  //   countryname = value;
+                                  // });
+                                }),
+                          ),
+                        ),
                         height20SizedBox,
-                        Text("Select a property (Apartment)",style: TextStyle(fontSize: 12),),
+                          Text("Select a property (Apartment)",style: TextStyle(fontSize: 12),),
                         height10SizedBox,
-                        Custom_Dropdown(dropdownlist: ["one","adsf"], hintText: "sdjkbds",),
+                        (appartment == null)?Custom_Dropdown(dropdownlist: ["Please First Select a building"], hintText: "Select a property (Apartment)",):
+
+                        Container(
+                          padding: EdgeInsets.fromLTRB(17, 0, 20, 0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colorss.textfiledbackground,
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<dynamic>(
+                                borderRadius: BorderRadius.circular(30),
+                                icon: Image.asset("assets/images/ic_dropdown.png",height: 7.5,width: 15.5,),
+                                dropdownColor: Colors.white,
+                                isExpanded: true,
+                                value: appartmentName,
+                                items: appartment
+                                    .map<DropdownMenuItem<dynamic>>(
+                                      ( data) =>
+                                      DropdownMenuItem<dynamic>(
+                                        child: Text("${data.apartmentNo}",style: const TextStyle(color: Colorss.textColorBlue,fontSize: 12),),
+                                        value: data.apartmentNo,
+                                      ),
+                                )
+                                    .toList(),
+                                onChanged: (value) {
+                                //  _getappartmentList();
+                                  // setState(() {
+                                  //   countryname = value;
+                                  // });
+                                }),
+                          ),
+                        ),
                         height20SizedBox,
                         Text("Account Number",style: TextStyle(fontSize: 12),),
                         height10SizedBox,
@@ -368,7 +601,7 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
                           text: 'acc_no_enter'.tr(),
                           icon: Icon(Icons.lock, color: Colors.green),
                           obscure: true,
-                          controller: _loginPasswordController,
+                          controller:_accountNoController,
                         ),
                         height20SizedBox,
                         Center(

@@ -225,8 +225,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   _body() {
-    return _isRetrieving ? _loadingLayout(context) : searchphoneaddress();//LanguagesScreen();
-
+    return _isRetrieving ?  _loadingLayout(context) : searchphoneaddress();//LanguagesScreen();
     //TabsScreen();
   }
 }
