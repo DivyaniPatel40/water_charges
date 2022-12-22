@@ -39,7 +39,8 @@ class _payment_responceState extends State<payment_responce> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    SizedBox(height: 30,),
+
+                    SizedBox(height: 60,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 40),
                       child: Container(
@@ -185,7 +186,7 @@ class _payment_responceState extends State<payment_responce> {
         physics: NeverScrollableScrollPhysics(),
       children: [
         Container(
-          height: MediaQuery.of(context).size.height *0.58,
+          height: MediaQuery.of(context).size.height *0.53,
         child: Column(
           children: [
             Container(

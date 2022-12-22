@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import 'package:untitled/models/apartment_model.dart';
 import 'package:untitled/models/app_user.dart';
@@ -24,6 +25,7 @@ import '../models/api_models/apartment_model.dart';
 import '../models/api_models/area_address_model.dart';
 import '../models/api_models/building_model.dart';
 import '../models/api_models/city_model.dart';
+import '../models/api_models/customer_details_model.dart';
 
 class ApiRepository {
   static RequestHelper requestHelper = RequestHelper();
@@ -47,6 +49,252 @@ class ApiRepository {
 
   // Settings map action
   static const headers = {'Accept': "application/json"};
+
+
+
+  // Water charges Project APIs
+  // Water charges Project APIs
+  // Water charges Project APIs
+  // Water charges Project APIs
+
+
+
+  static  getcityarealist() async {
+    print("inside get city list ${citylist}");
+    try {
+      final response =
+      await http.post(Uri.parse(citylist),
+          headers: headers,
+          body:{
+            "email": "portal_zet",
+            "password": "Qazwsx123!",
+            "id":"",
+            "country_id": "",
+            "state_id": "1",
+            "town_id": "55",
+            "search_text": "",
+            "offset":"0",
+            "limit":"10"
+          });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        AddressCityModel r = AddressCityModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+        return r;
+        // print("list $list");
+        //
+        // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+  static  getaddresslist() async {
+    print("inside get city list");
+    try {
+      final response =
+      await http.post(Uri.parse(addresslist),
+          headers: headers,
+          body:{
+            "email": "portal_zet",
+            "password": "Qazwsx123!",
+            "id":"",
+            "country_id": "",
+            "state_id": "1",
+            "town_id": "55",
+            "city_id":"",
+            "village_name":"",
+            "micrayon":"",
+            "search_text": "",
+            "offset":"0",
+            "limit":"10"
+          });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        AreaAddressModel r = AreaAddressModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+        return r;
+        // print("list $list");
+        //
+        // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+  static  getbuildinglist() async {
+    print("inside get getbuildinglist list");
+    try {
+      final response =
+      await http.post(Uri.parse(BuildingList),
+          headers: headers,
+          body:{
+            "email": "portal_zet",
+            "password": "Qazwsx123!",
+            "building_uuid":"",
+            "address_id":"",
+            "stage":"",
+            "building_no":"",
+            "building_register_number":"",
+            "building_name":"",
+            "offset":"0",
+            "limit":"10"
+          });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        AddressBuildingModel r = AddressBuildingModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+        return r;
+        // print("list $list");
+        //
+        // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+  static  getappartmentlist() async {
+    print("inside get getbuildinglist list");
+    try {
+      final response =
+      await http.post(Uri.parse(appartmentlist),
+          headers: headers,
+          body:{
+            "email": "portal_zet",
+            "password": "Qazwsx123!",
+            "apartment_uuid":"" ,
+            "address_id":"",
+            "building_id":"",
+            "apartment_no":"",
+            "phone_number":"",
+            "offset":"0",
+            "limit":"10"
+          });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        AddressApartmentModel r = AddressApartmentModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+        return r;
+        // print("list $list");
+        //
+        // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+
+  // Water charges Project APIs end
+  // Water charges Project APIs end
+  // Water charges Project APIs end
+  // Water charges Project APIs end
+
+
+  static Future customerdetails(String apartment_phone, String paybook_id,  ) async{
+    try {
+      final response =
+      await http.get(Uri.parse("${get_water_charge}" '?apartment_phone= $apartment_phone' '?paybook_id = $paybook_id'),
+          headers: {
+            'email': 'portal@pymnt.local',
+            'password': "123456t",
+          },
+
+
+      );
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+        // return addressCityModelToJson(parsed);
+        // List<AddressCityModel> list =
+        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
+        CustomerDetailsModel r = CustomerDetailsModel.fromJson(parsed);
+
+
+        // printObject(r);
+
+
+
+        return r;
+        // print("list $list");
+        //
+        // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+
+
+
+
+
+
 
   // Register a new user in the database
   static Future<AppUser> registerUser(BuildContext context, String name,
@@ -112,16 +360,20 @@ class ApiRepository {
   static Future<http.Response?> getchargebyPhoneNo(BuildContext context, String accountno,
       String phoneNo ) async {
     try {
-
-
-      final response = await http.get(Uri.parse(get_water_charge),
+//?paybook_id=220897405&apartment_phone=333333
+//run kare ne aa 2 nakh check the response OK
+      final response = await http.get(Uri.parse(get_water_charge+"/?paybook_id=$accountno&apartment_phone=$phoneNo"),
           headers: {
             "Content-type": "multipart/form-data",
             "email": "portal@pymnt.local",
             "password": "123456t"
           }, );
+      print(response.body);
       if (200 == response.statusCode) {
+        print("respone.body ${response.body}");
+
         return response;
+        
       } else {
         return null;
       }
@@ -429,191 +681,6 @@ class ApiRepository {
   }
 
 
-  // Get all recipes from the database
-  static  getcityarealist() async {
-    print("inside get city list ${citylist}");
-    try {
-      final response =
-      await http.post(Uri.parse(citylist),
-          headers: headers,
-          body:{
-        "email": "portal_zet",
-        "password": "Qazwsx123!",
-        "id":"",
-        "country_id": "",
-        "state_id": "1",
-        "town_id": "55",
-        "search_text": "",
-        "offset":"0",
-        "limit":"10"
-      });
-      print("object");
-      print("res ${response.statusCode}");
-      print("res ${response.body}");
-      if (200 == response.statusCode) {
-
-        final parsed = json.decode(response.body);
-        // return addressCityModelToJson(parsed);
-        // List<AddressCityModel> list =
-        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
-        AddressCityModel r = AddressCityModel.fromJson(parsed);
-
-
-        // printObject(r);
-
-
-
-      return r;
-        // print("list $list");
-        //
-       // return list;
-      } else {
-        return [];
-      }
-    } catch (e) {
-      // print('recipes fetching error: $e');
-      return [];
-    }
-  }
-  static  getaddresslist() async {
-    print("inside get city list");
-    try {
-      final response =
-      await http.post(Uri.parse(addresslist),
-          headers: headers,
-          body:{
-        "email": "portal_zet",
-        "password": "Qazwsx123!",
-        "id":"",
-        "country_id": "",
-        "state_id": "1",
-        "town_id": "55",
-            "city_id":"",
-            "village_name":"",
-            "micrayon":"",
-        "search_text": "",
-        "offset":"0",
-        "limit":"10"
-      });
-      print("object");
-      print("res ${response.statusCode}");
-      print("res ${response.body}");
-      if (200 == response.statusCode) {
-
-        final parsed = json.decode(response.body);
-        // return addressCityModelToJson(parsed);
-        // List<AddressCityModel> list =
-        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
-        AreaAddressModel r = AreaAddressModel.fromJson(parsed);
-
-
-        // printObject(r);
-
-
-
-      return r;
-        // print("list $list");
-        //
-       // return list;
-      } else {
-        return [];
-      }
-    } catch (e) {
-      // print('recipes fetching error: $e');
-      return [];
-    }
-  }
-static  getbuildinglist() async {
-    print("inside get getbuildinglist list");
-    try {
-      final response =
-      await http.post(Uri.parse(BuildingList),
-          headers: headers,
-          body:{
-        "email": "portal_zet",
-        "password": "Qazwsx123!",
-            "building_uuid":"",
-            "address_id":"",
-            "stage":"",
-            "building_no":"",
-            "building_register_number":"",
-            "building_name":"",
-        "offset":"0",
-        "limit":"10"
-      });
-      print("object");
-      print("res ${response.statusCode}");
-      print("res ${response.body}");
-      if (200 == response.statusCode) {
-
-        final parsed = json.decode(response.body);
-        // return addressCityModelToJson(parsed);
-        // List<AddressCityModel> list =
-        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
-        AddressBuildingModel r = AddressBuildingModel.fromJson(parsed);
-
-
-        // printObject(r);
-
-
-
-      return r;
-        // print("list $list");
-        //
-       // return list;
-      } else {
-        return [];
-      }
-    } catch (e) {
-      // print('recipes fetching error: $e');
-      return [];
-    }
-  }
-static  getappartmentlist() async {
-    print("inside get getbuildinglist list");
-    try {
-      final response =
-      await http.post(Uri.parse(appartmentlist),
-          headers: headers,
-          body:{
-        "email": "portal_zet",
-        "password": "Qazwsx123!",
-            "apartment_uuid":"" ,
-            "address_id":"",
-            "building_id":"",
-            "apartment_no":"",
-            "phone_number":"",
-        "offset":"0",
-        "limit":"10"
-      });
-      print("object");
-      print("res ${response.statusCode}");
-      print("res ${response.body}");
-      if (200 == response.statusCode) {
-
-        final parsed = json.decode(response.body);
-        // return addressCityModelToJson(parsed);
-        // List<AddressCityModel> list =
-        // parsed.map<AddressCityModel>((json) => AddressCityModel.fromJson(json));
-        AddressApartmentModel r = AddressApartmentModel.fromJson(parsed);
-
-
-        // printObject(r);
-
-
-
-      return r;
-        // print("list $list");
-        //
-       // return list;
-      } else {
-        return [];
-      }
-    } catch (e) {
-      // print('recipes fetching error: $e');
-      return [];
-    }
-  }
 
 
   // Get most collected recipes from the database

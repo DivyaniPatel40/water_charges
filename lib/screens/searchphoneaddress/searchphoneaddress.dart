@@ -1,5 +1,7 @@
 //searchphoneaddress
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,11 +14,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:untitled/widgets/custom_text_field.dart';
 import 'package:untitled/widgets/progress_dialog.dart';
 
+import '../../models/api_models/customer_details_model.dart';
 import '../../theme.dart';
 import '../../widgets/custom_dropdown.dart';
 import '../../widgets/default_custom_button.dart';
 import '../../widgets/size_constants.dart';
 import 'dart:developer';
+
+import '../Paymrnt/payment_details.dart';
 // import 'package:untitled/models/city_listModel.dart';
 
 
@@ -93,9 +98,11 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
 
               ),
               child: Column(
+
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   SizedBox(height: 80,),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
@@ -179,6 +186,7 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
   void initState() {
     super.initState();
 
+    //GetWaterchargeAPICall();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -239,6 +247,11 @@ class _searchphoneaddressState extends State<searchphoneaddress> with SingleTick
       });
     });
   }
+
+
+
+
+
 var addressname,buildingname,appartmentName;
   String? countryname;
   void showInSnackBar(String value) {
@@ -262,7 +275,7 @@ var addressname,buildingname,appartmentName;
         obscureText: false,
         cursorColor: Colors.black,
         style: TextStyle(
-          color: Color(0xffedf6ff),
+          color: Colors.black,
           fontFamily: 'Raleway',
           fontSize: 14,
         ),
@@ -420,7 +433,15 @@ var addressname,buildingname,appartmentName;
 
     ).then((value) async {
       await loadingDialog(context).hide();
-      // if (value != null) Navigator.pop(context);
+       if (value != null) {
+         print("asdasdfva${value}");
+         final body = json.decode(value.body);
+         print("bodysfddsfdxf${body['data']}");
+         var myData = CustomerDetailsModel.fromJson(body);
+         print("mydta is${myData}");
+         Navigator.push(context, MaterialPageRoute(builder: (context) =>
+             payment_details(customerDetailsData: myData.data)));
+       }
     });
 
     FocusScope.of(context).unfocus();

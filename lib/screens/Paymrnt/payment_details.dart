@@ -2,15 +2,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/screens/Paymrnt/payment_responce.dart';
 import 'package:untitled/screens/searchphoneaddress/searchphoneaddress.dart';
+import 'package:untitled/services/api_repository.dart';
 import 'package:untitled/utils/utils.dart';
 import 'package:untitled/widgets/size_constants.dart';
 //
+import '../../models/api_models/customer_details_model.dart';
 import '../../theme.dart';
 import '../../widgets/custom_text_field.dart';
 import '../../widgets/default_custom_button.dart';
 
 class payment_details extends StatefulWidget {
-  const payment_details({Key? key}) : super(key: key);
+  CustomerDetailsData? customerDetailsData;
+   payment_details({Key? key,this.customerDetailsData}) : super(key: key);
 
   @override
   State<payment_details> createState() => _payment_detailsState();
@@ -23,7 +26,24 @@ bool _enabled = true;
 
 class _payment_detailsState extends State<payment_details> {
   @override
+  void initState() {
+   print('my pass data is ${widget.customerDetailsData}');
+
+
+
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // var some = widget.customerDetailsData?.account?.agreements?[0].payments?[0].createdAt;
+    DateTime date = DateTime.parse(widget.customerDetailsData?.account?.agreements![0].payments![0].createdAt?.toString() ?? "");
+    DateFormat serverFormater = DateFormat('dd-MM-yyyy');
+    String formatted = serverFormater.format(date);
+
+
+
     return Scaffold(
       key: _scaffoldKey,
       body: NotificationListener<OverscrollIndicatorNotification>(
@@ -64,7 +84,9 @@ class _payment_detailsState extends State<payment_details> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                            onTap: (){},
+                            onTap: (){
+                              Navigator.pop(context);
+                            },
                             child: Ink(
                               child: Icon(Icons.arrow_back),
                             ),
@@ -134,9 +156,9 @@ class _payment_detailsState extends State<payment_details> {
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Text("dataClaudia Welch",style: TextStyle(fontSize: 16, fontFamily:'Metropolis',color: Colors.black),),
+                                              Text(widget.customerDetailsData?.account?.name.toString() ?? "",style: TextStyle(fontSize: 16, fontFamily:'Metropolis',color: Colors.black),),
                                               height5SizedBox,
-                                              Text("claudia_welch@gmail.com",style: TextStyle(fontSize: 12, fontFamily:'Metropolis',color: Color(0xff9E9E9E)),),
+                                              Text(widget.customerDetailsData?.account?.accountId.toString() ?? "",style: TextStyle(fontSize: 12, fontFamily:'Metropolis',color: Color(0xff9E9E9E)),),
                                             ],
                                           ),
                                         ),
@@ -152,7 +174,7 @@ class _payment_detailsState extends State<payment_details> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text("Phone number:",style: TextStyle(fontSize: 14),),
-                                              Text("+1 202 555 0174",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                                              Text(widget.customerDetailsData?.account?.phone.toString() ?? "",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                                             ],
                                           ),
                                           height15SizedBox,
@@ -160,7 +182,7 @@ class _payment_detailsState extends State<payment_details> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text("Account number:",style: TextStyle(fontSize: 14),),
-                                              Text("2356 7675 7565",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                                              Text(widget.customerDetailsData?.account?.accountId.toString() ?? "",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                                             ],
                                           ),
                                           height15SizedBox,
@@ -168,7 +190,9 @@ class _payment_detailsState extends State<payment_details> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text("My Balance:",style: TextStyle(fontSize: 14),),
-                                              Text("9.40 TMT",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+
+                                              Text(widget.customerDetailsData?.account?.agreements![0]?.agreement?.balance.toString() ?? "",
+                                                style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                                             ],
                                           ),
                                           height15SizedBox,
@@ -176,7 +200,7 @@ class _payment_detailsState extends State<payment_details> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text("Discount:",style: TextStyle(fontSize: 14),),
-                                              Text("10% on payment date",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                                              Text(widget.customerDetailsData?.account?.discount.toString() ?? "",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                                             ],
                                           ),
                                           height15SizedBox,
@@ -184,7 +208,9 @@ class _payment_detailsState extends State<payment_details> {
                                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text("Last Payment:",style: TextStyle(fontSize: 14),),
-                                              Text("21st March, 2021",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                                              Text(formatted
+                                               // widget.customerDetailsData?.account?.agreements![0].payments![0].createdAt.toString() ?? ""
+                                              ,style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                                             ],
                                           ),
                                           height20SizedBox,
@@ -201,10 +227,13 @@ class _payment_detailsState extends State<payment_details> {
                               child: ListView.builder(
                                   shrinkWrap: true,
                                   physics: NeverScrollableScrollPhysics(),
-                                itemCount: 2,
+                                  // itemCount: 5,
+                                 itemCount: widget.customerDetailsData?.account?.agreements?[0].group?.length,
+
                                   itemBuilder: (c , i){
+                                    // print("dsagf${ widget.customerDetailsData?.account?.agreements?[0].group?.length}");
                                   return Container(
-                                    child: servicespaymentdetails(),
+                                    child: servicespaymentdetails(i),
                                   );
                               }),
                             ),
@@ -317,7 +346,7 @@ class _payment_detailsState extends State<payment_details> {
                               child: DefaultCustomButton(
                                 text: "PAY",
                                 onPressed: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => payment_responce()));
+                                  //Navigator.push(context, MaterialPageRoute(builder: (context) => payment_responce()));
                                 },
                               ),),
                             height20SizedBox,
@@ -477,8 +506,13 @@ sidemenu(){
     );
 }
 
-servicespaymentdetails(){
-    return Card(
+servicespaymentdetails(int i){
+
+  DateTime datas = DateTime.parse(widget.customerDetailsData?.account?.agreements![0].group?[i].the0?.lastValue?.toDate.toString() ?? "");
+  DateFormat serverFormater = DateFormat('dd-MM-yyyy');
+  String formated = serverFormater.format(datas);
+
+  return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -500,7 +534,9 @@ servicespaymentdetails(){
 
               height: 38,
               margin: EdgeInsets.only(left: 20,right: 20,top: 20),
-              child: Center(child: Text("Suw",style: TextStyle(fontSize: 16),)),
+              child: Center(
+                  child: Text(widget.customerDetailsData?.account?.agreements![0].group?[i].type.toString() ?? "",
+                    style: TextStyle(fontSize: 16),)),
             ),
             height20SizedBox,
             Container(
@@ -511,7 +547,7 @@ servicespaymentdetails(){
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Rate:",style: TextStyle(fontSize: 14),),
-                      Text("9.40 TMT",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                      Text(widget.customerDetailsData?.account?.agreements![0].group![i].the0?.tarif?.price.toString() ?? "",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                     ],
                   ),
                   height15SizedBox,
@@ -519,7 +555,7 @@ servicespaymentdetails(){
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Debt:",style: TextStyle(fontSize: 14),),
-                      Text("4.0 TMT",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                      Text(widget.customerDetailsData?.account?.agreements![0].group?[i].sumOfUnpaidCharges.toString() ?? "",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                     ],
                   ),
                   height15SizedBox,
@@ -527,7 +563,7 @@ servicespaymentdetails(){
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Last Payment:",style: TextStyle(fontSize: 14),),
-                      Text("21st March, 2021",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                      Text(formated.toString(),style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                     ],
                   ),
                   height15SizedBox,
@@ -535,7 +571,7 @@ servicespaymentdetails(){
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Last Usage Indicator:",style: TextStyle(fontSize: 14),),
-                      Text("15",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                      Text(widget.customerDetailsData?.account?.agreements?[0].group?[i].the0?.lastValue?.toValue.toString() ?? "",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                     ],
                   ),
                   height15SizedBox,
@@ -548,7 +584,6 @@ servicespaymentdetails(){
                   ),
                   height10SizedBox,
                   CustomTextField(
-
                     text: 'Enter your new indicator',
                     obscure: false,
                     controller: indicatorController,
@@ -562,4 +597,6 @@ servicespaymentdetails(){
       ),
     );
 }
+
+
 }
