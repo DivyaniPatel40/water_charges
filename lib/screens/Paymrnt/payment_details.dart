@@ -191,7 +191,19 @@ class _payment_detailsState extends State<payment_details> {
                                             children: [
                                               Text("My Balance:",style: TextStyle(fontSize: 14),),
 
-                                              Text(widget.customerDetailsData?.account?.agreements![0]?.agreement?.balance.toString() ?? "",
+                                              Text(
+                                                "${
+                                                  widget
+                                                          .customerDetailsData
+                                                          ?.account
+                                                          ?.agreements![0]
+                                                          ?.agreement
+                                                          ?.balance
+                                                          .toString() ??
+                                                      ""
+                                                } ${
+                                                widget.customerDetailsData?.account?.agreements![0].agreement?.cashtype ?? ""
+                                                }",
                                                 style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                                             ],
                                           ),
@@ -547,7 +559,13 @@ servicespaymentdetails(int i){
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Rate:",style: TextStyle(fontSize: 14),),
-                      Text(widget.customerDetailsData?.account?.agreements![0].group![i].the0?.tarif?.price.toString() ?? "",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
+                      Text(
+                        "${
+                          widget.customerDetailsData?.account?.agreements![0]
+                                  .group![i].the0?.tarif?.price
+                                  .toString() ??
+                              ""
+                        } ${widget.customerDetailsData?.account?.agreements![0].agreement?.cashtype ?? ""}",style: TextStyle(fontSize: 14,color: Colorss.textColorGreen),),
                     ],
                   ),
                   height15SizedBox,

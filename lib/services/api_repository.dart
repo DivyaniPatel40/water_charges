@@ -26,6 +26,7 @@ import '../models/api_models/area_address_model.dart';
 import '../models/api_models/building_model.dart';
 import '../models/api_models/city_model.dart';
 import '../models/api_models/customer_details_model.dart';
+import '../models/api_models/payment_responce_model.dart';
 
 class ApiRepository {
   static RequestHelper requestHelper = RequestHelper();
@@ -40,6 +41,7 @@ class ApiRepository {
   static const addresslist = API + '/housing/bill/address/address';
   static const citylist = API + '/housing/bill/address/city';
   static const get_water_charge = API + '/water/api/portal/v2/get-charges';
+  static const get_payment_reponce = API + '/water/api/portal/v1/make-payment';
 
 
   static const RECIPE_IMAGES_PATH = URL + '/uploads/recipes/';
@@ -104,6 +106,73 @@ class ApiRepository {
       return [];
     }
   }
+  static  getpaymentresponce() async {
+
+    try {
+      final response =
+      await http.post(Uri.parse(get_payment_reponce),
+          headers: {
+            'email': 'portal@pymnt.local',
+            'password': "123456t",
+          },
+
+          body:{
+            'agreement_uuid': '4cbbda3c-4a11-4798-9277-09e5eec586ff',
+            'amount' : 1,
+            'receipt': '89f08f21-64ec-48b5-b02a-176b790c8800'
+          });
+      print("object");
+      print("res ${response.statusCode}");
+      print("res ${response.body}");
+      if (200 == response.statusCode) {
+
+        final parsed = json.decode(response.body);
+         //return categoryToJson(parsed);
+
+        PaymentResponce r = PaymentResponce.fromJson(parsed);
+        // List<PaymentResponce> list =
+        // parsed.map<PaymentResponce>((json) => PaymentResponce.fromJson(json));
+
+
+
+
+
+
+
+         //printObject(r);
+
+
+        return r;
+        // print("list $list");
+        //
+        // return list;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      // print('recipes fetching error: $e');
+      return [];
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   static  getaddresslist() async {
     print("inside get city list");
     try {
